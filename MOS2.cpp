@@ -52,6 +52,9 @@ void catalogue()
 
 void order()
 {
+    //Clear cart after previous order
+    cart_count = 0;
+
     //This part handles the ordering of items
     string code;
 
@@ -84,6 +87,7 @@ void order()
             cart_qty[cart_count] = quantity;
             cart_count++;
 
+
             cout << quantity << " " << item_name[i] << " added to cart." << endl;
             found = true;
             break;
@@ -104,7 +108,16 @@ void order()
 
 void checkout()
 {
-    cout << "This is a test" << endl;
+    for(int i = 0; i < cart_count; i++)
+    {
+        for (int j = 0; j < 10; j++)
+        {
+            if (item_code[j] == cart[i])
+            {
+                cout << cart[i] << " " << cart_qty[i] << " " << item_price[j] * cart_qty[i] << endl;
+            }
+        }
+    }
 }
 int main()
 {
@@ -119,7 +132,15 @@ int main()
             if(order_option == 1)
             {
                 order();
-                checkout();
+                if (cart_count > 0) 
+                {
+                    checkout();
+                } 
+                else 
+                {
+                    cout << "No items in cart. Press Enter to return to main menu." << endl;
+                    cin.get();
+                }
             }
             else 
             {
