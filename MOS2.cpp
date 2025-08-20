@@ -23,13 +23,13 @@ void mainmenu()
     cout << setfill('=') << setw(26) << "" << endl << endl;
     cout << "   MEDICAL SUPPLY ORDER   " << endl << endl;
 	cout << setfill('=') << setw(26) << "" << endl << endl;
-
-cout << "[1] Order    [2] History    [3] Exit\n\n";
+    cout << "[1] Order    [2] History    [3] Exit\n\n";
 
 
 
 	cout << "Please select an option (1-3): ";
 	cin >> option;
+    cin.ignore(); 
 }
 void catalogue()
 {
@@ -48,6 +48,7 @@ void catalogue()
 	
 	cout << "[1] Order  [2] Main Menu: ";
 	cin >> order_option;
+    cin.ignore(); 
 }
 
 void order()
@@ -108,13 +109,17 @@ void order()
 
 void checkout()
 {
-    for(int i = 0; i < cart_count; i++)
+    cout << setfill('=') << setw(26) << "" << endl << endl;
+    cout << "  YOUR CART  " << endl;
+    cout << setfill('=') << setw(26) << "" << endl << endl;
+
+    for (int i = 0; i < cart_count; i++)
     {
         for (int j = 0; j < 10; j++)
         {
             if (item_code[j] == cart[i])
             {
-                cout << cart[i] << " " << cart_qty[i] << " " << item_price[j] * cart_qty[i] << endl;
+                cout << cart[i]<< cart_qty[i]<< item_price[j] * cart_qty[i] << endl;
             }
         }
     }
@@ -141,10 +146,6 @@ int main()
                     cout << "No items in cart. Press Enter to return to main menu." << endl;
                     cin.get();
                 }
-            }
-            else 
-            {
-                mainmenu();
             }
         }
 
