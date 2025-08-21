@@ -224,7 +224,7 @@ int main()
         mainmenu();
 
         if (option == 1)
-        {
+        {   system("clear");
             catalogue();
 
             if(order_option == 1)
