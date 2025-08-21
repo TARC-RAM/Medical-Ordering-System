@@ -109,9 +109,14 @@ void order()
 
 void checkout()
 {
-    cout << setfill('=') << setw(26) << "" << endl << endl;
+    //Banner
+    cout << setfill('=') << setw(35) << "" << endl << endl;
     cout << "  YOUR CART  " << endl;
-    cout << setfill('=') << setw(26) << "" << endl << endl;
+    cout << setfill('=') << setw(35) << "" << endl << endl;
+
+    //Seperated by type
+    cout << "Item Code | Quantity | Total Price" << endl;
+    cout << setfill('-') << setw(35) << "" << endl;
 
     for (int i = 0; i < cart_count; i++)
     {
@@ -119,7 +124,7 @@ void checkout()
         {
             if (item_code[j] == cart[i])
             {
-                cout << cart[i]<< cart_qty[i]<< item_price[j] * cart_qty[i] << endl;
+                cout << cart[i] << "      |" << cart_qty[i] << "        |" << item_price[j] * cart_qty[i] << endl;
             }
         }
     }
