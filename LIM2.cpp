@@ -56,9 +56,10 @@ void catalogue()
 	cout << "A108   |Stethoscope            |25.00    " << endl;
 	cout << "A109   |Blood Pressure Monitor |30.00    " << endl; 	
 	cout << "A110   |Wheelchair             |200.00   " << endl << endl;
-	
+
 	cout << "[1] Order  [2] Main Menu: ";
 	cin >> order_option;
+    cout << endl;
     cin.ignore(); 
 }
 
@@ -238,13 +239,14 @@ int main()
                     cout << "\nPayment successful!" << endl;
                     cout << "Change: RM" << fixed << setprecision(2) << payment.change << endl;
                     cout << "Thank you for your purchase!" << endl;
-                    cout << "\nPress Enter to return to main menu...";
+                    cout << "\nPress Enter to return to main menu..." << endl;
+                    cin.ignore();
                     cin.get();
+                    system("clear");
                 } 
                 else 
                 {
                     cout << "No items in cart. Press Enter to return to main menu." << endl;
-                    cin.get();
                 }
             }
         }
