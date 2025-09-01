@@ -5,6 +5,13 @@
 #include <cctype>
 using namespace std;
 
+// Transaction history arrays (add after existing globals)
+string transaction_dates[10];
+double transaction_totals[10];
+int transaction_item_counts[10];
+int transaction_index = 0;
+int total_transactions = 0;
+
 // Constants for invoice calculations
 const double SERVICE_CHARGE_PERCENT = 0.05;
 const double TAX_PERCENT = 0.06;
@@ -35,7 +42,7 @@ void mainmenu()
     cout << setfill('=') << setw(26) << "" << endl << endl;
     cout << "   MEDICAL SUPPLY ORDER   " << endl << endl;
 	cout << setfill('=') << setw(26) << "" << endl << endl;
-    cout << "[1] Order    [2] History    [3] Exit\n\n";
+    cout << "[1] Order    [2] Reports    [3] Exit\n\n";
 
 	cout << "Please select an option (1-3): ";
 	cin >> option;
@@ -172,7 +179,50 @@ double checkout()
     cout << "===============================================================\n";
     cout << "Total Items: " << totalItems << endl;
     
+    //transaction details (Report function)
+    transaction_dates[transaction_index] = "Transaction " + to_string(total_transactions + 1);
+    transaction_totals[transaction_index] = total;
+    transaction_item_counts[transaction_index] = totalItems;
+    
+    transaction_index = (transaction_index + 1) % 10;
+    total_transactions++;
+
     return total;
+}
+
+void displayReports()
+{
+    cout << "\n===============================================================\n";
+    cout << "                    TRANSACTION HISTORY                        \n";
+    cout << "===============================================================\n";
+    
+    if (total_transactions == 0) {
+        cout << "No transactions found.\n";
+        cout << "===============================================================\n";
+        return;
+    }
+    
+    int displayCount = (total_transactions < 10) ? total_transactions : 10;
+    int startIndex;
+    
+    if (total_transactions < 10) {
+        startIndex = 0;
+    } else {
+        startIndex = transaction_index;
+    }
+    
+    cout << left << setw(20) << setfill(' ') << "Transaction" << setw(15) << setfill(' ') << "Total Items" << right << setw(15) << setfill(' ') << "Total (RM)" << endl;
+    cout << "---------------------------------------------------------------\n";
+    
+    for (int i = 0; i < displayCount; i++) {
+        int currentIndex = (startIndex + i) % 10;
+        cout << left << setw(20) << setfill(' ') << transaction_dates[currentIndex]
+             << setw(15) << setfill(' ') << transaction_item_counts[currentIndex] << right << setw(15) << setfill(' ') << fixed << setprecision(2) << transaction_totals[currentIndex] << endl;
+    }
+    
+    cout << "===============================================================\n";
+    cout << "Press Enter to return to main menu...";
+    cin.get();
 }
 
 // Payment processing function
@@ -249,6 +299,13 @@ int main()
                     cout << "No items in cart. Press Enter to return to main menu." << endl;
                 }
             }
+        }
+
+        else if (option == 2)
+        {
+            system("clear");
+            displayReports();
+            system("clear");
         }
 
     } while (option != 3);
